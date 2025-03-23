@@ -7,7 +7,10 @@ export const authAdmin = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const token = req.headers.authorization?.split("")[1];
+    console.log(req.headers.authorization?.split(" ")[1]);
+    
+    const token = req.headers.authorization?.split(" ")[1];
+    
     if (!token) {
       res
         .status(401)

@@ -4,6 +4,7 @@ import { v2 as cloudinary } from "cloudinary";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { Doctor } from "../models/Docter.js";
+
 export const addDoctor = async (req: Request, res: Response): Promise<void> => {
   try {
     const {
@@ -103,3 +104,16 @@ export const loginAdmin = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
+
+export const allDoctors = async (req: Request, res: Response) => {
+  try {
+    const doctors = await Doctor.find({}).select('-password')
+
+    res.status(200).json({success:true,doctors})
+  } catch (error) {
+    console.log("Server Error in all Doctors contoller");
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+
