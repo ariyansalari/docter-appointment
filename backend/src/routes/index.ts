@@ -1,11 +1,12 @@
 import { Router } from "express";
-import Admin from './adminRoutes.js'
+import Admin from "./adminRoutes.js";
+import Doctor from "./doctorRoutes.js";
+import User from "./userRotues.js";
 
-const router= Router()
+const router = Router();
 
+router.use("/admin", Admin);
+router.use(Doctor);
+router.use("/user", User);
 
-router.use('/admin',Admin)
-
-
-
-export default router
+export default router;

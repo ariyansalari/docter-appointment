@@ -9,6 +9,7 @@ interface AdminContextProps {
   backendUrl: string;
   getAllDoctors: () => void;
   doctors: any[];
+  changeAvailability: (id: string) => void;
 }
 
 export const AdminContext = createContext<AdminContextProps>({
@@ -17,6 +18,7 @@ export const AdminContext = createContext<AdminContextProps>({
   token: "",
   getAllDoctors: () => {},
   doctors: [],
+  changeAvailability: () => {},
 });
 
 const AdminContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -42,12 +44,37 @@ const AdminContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const changeAvailability = async (id: string) => {
+    try {
+      const { data } = await axios.put(
+        backendUrl + `/api/admin/change-avalibility/${id}`,
+        {
+       
+        },{
+          headers:{
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      if(data.success){
+        getAllDoctors();
+        toast.success(data.message);
+      }else{ 
+        toast.error(data.message);
+      }
+    } catch (error: any) {
+      toast.error(error?.message || "");
+      console.error(error);
+    }
+  };
+
   const value = {
     token,
     setToken,
     backendUrl,
     getAllDoctors,
     doctors,
+    changeAvailability,
   };
 
   return (
