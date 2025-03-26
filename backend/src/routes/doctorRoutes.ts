@@ -1,10 +1,8 @@
 import { Router } from "express";
+import { doctorList } from "../controllers/dcotorContoller.js";
 
+const router = Router();
 
-const router =Router()
+router.get("/doctor/list", doctorList);
 
-
-
-
-
-export default router
+export default router;

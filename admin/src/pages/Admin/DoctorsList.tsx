@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useAdminContext } from "../../context/AdminContext";
 
 const DoctorsList = () => {
-  const { getAllDoctors, doctors, token } = useAdminContext();
+  const { getAllDoctors, doctors, token, changeAvailability } =
+    useAdminContext();
 
   useEffect(() => {
     if (token) {
@@ -22,12 +23,22 @@ const DoctorsList = () => {
             className="border border-indigo-200 rounded-xl  max-w-56 overflow-hidden cursor-pointer group"
             key={index}
           >
-            <img className="bg-indigo-50 group-hover:bg-primary transition-all duration-500" src={doctorItem?.image} alt="" />
-            <div  className="p-4 ">
-              <p className="text-neutral-800 text-lg font-medium">{doctorItem?.name}</p>
+            <img
+              className="bg-indigo-50  group-hover:bg-primary transition-all duration-500"
+              src={doctorItem?.image}
+              alt=""
+            />
+            <div className="p-4 ">
+              <p className="text-neutral-800 text-lg font-medium">
+                {doctorItem?.name}
+              </p>
               <p className="text-zinc-600 text-sm">{doctorItem?.speciality}</p>
               <div className="mt-2 flex items-center  gap-1 text-sm">
-                <input type="checkbox" checked={doctorItem?.available} />
+                <input
+                  onChange={() => changeAvailability(doctorItem?._id)}
+                  type="checkbox"
+                  checked={doctorItem?.available}
+                />
                 <p>Available</p>
               </div>
             </div>

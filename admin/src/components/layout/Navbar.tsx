@@ -10,7 +10,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
-  return (
+  return (  
     <div className="flex justify-between  items-center px-4 sm:px-10 border-b bg-white py-3">
       <div className=" flex items-center gap-2 text-xs">
         <img
